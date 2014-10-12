@@ -1,0 +1,33 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.8'
+    }
+}
+
+repositories {
+    mavenCentral();
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'appengine'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+    appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.8'
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile 'org.springframework:spring-webmvc:4.1.1.RELEASE'
+    compile 'javax.servlet:servlet-api:2.5'
+}
+
+appengine {
+    downloadSdk = true
+    appcfg {
+        oauth2 = true
+    }
+}
