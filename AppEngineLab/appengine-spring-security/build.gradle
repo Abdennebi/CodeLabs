@@ -1,0 +1,49 @@
+def servletApiVersion = "2.5"
+def appengineVersion = "1.9.15"
+def springVersion = "4.1.1.RELEASE"
+def springSecurityVersion = "3.2.5.RELEASE"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.8'
+    }
+}
+
+repositories {
+    mavenCentral();
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'appengine'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+
+    providedCompile "javax.servlet:servlet-api:$servletApiVersion"
+    appengineSdk "com.google.appengine:appengine-java-sdk:${appengineVersion}"
+    compile "com.google.appengine:appengine-api-1.0-sdk:${appengineVersion}"
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile "org.springframework:spring-webmvc:${springVersion}"
+    compile "org.springframework.security:spring-security-web:${springSecurityVersion}"
+    runtime "org.springframework.security:spring-security-config:${springSecurityVersion}"
+    runtime "org.springframework.security:spring-security-taglibs:${springSecurityVersion}"
+    compile 'javax.validation:validation-api:1.0.0.GA'
+    compile 'org.hibernate:hibernate-validator:4.2.0.Final'
+    testCompile  'junit:junit:4.11'
+    testCompile  "com.google.appengine:appengine-testing:${appengineVersion}"
+    testRuntime  "com.google.appengine:appengine-api-labs:${appengineVersion}"
+    testRuntime  "com.google.appengine:appengine-api-stubs:${appengineVersion}"
+}
+
+appengine {
+    downloadSdk = true
+    appcfg {
+        oauth2 = true
+    }
+}
